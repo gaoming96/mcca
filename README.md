@@ -1,8 +1,9 @@
 # mcca
-This is a package for Multi-category Diagnostic Accuracy.
-Before using this package, you need to install some R packages.
-Here is a little demo.
+This is a package for Multi-category Diagnostic Accuracy.<br>
+Before using this package, you need to install some R packages.<br>
+Here is a little demo.<br>
 
+```r
 #install.packages("nnet")
 #install.packages("rpart")
 #install.packages("e1071")
@@ -33,3 +34,4 @@ pdi(y = label, d = data,method="tree",n=3)
 ##[1] 0.9082667
 pdi(y = label, d = data, method = "mlp",n=3)
 ##[1] 0.9845333
+```
