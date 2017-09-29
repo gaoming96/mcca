@@ -5,13 +5,13 @@
 idi(y, m1, m2, method="multinom",n=3)
 }
 \description{
-compute the integrated discrimination improvement (IDI) value of three or four categories classifiers with an method to define the specific model or user can use his own model.
+compute the integrated discrimination improvement (IDI) value of three or four categories classifiers with an option to define the specific model or user-defined model.
 }
 \arguments{
   \item{y}{the tri-nomial or quandr-nomial response, i.e., a single vector taking three distinct values, can be nominal or numerical.}
-  \item{m1}{the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m1 should be the probablity matrix.}
-    \item{m2}{the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m2 should be the probablity matrix.}
-  \item{method}{the simplied name of one of the following most popular regressions:“multinom”: Multinomial Regression which is the defalt method, requiring R package nnet;“tree”: Classification Tree without pruning, requiring R package rpart;“svm”: Support Vector Machine with parameters: C-classification and radial basis, requiring R package m1071;“lda”: Linear Discriminant Analysis, requiring R package lda;“mlp”: Multiply Layer Perception, requiring R package mxnet;“prob”: Regression arbitrarily.}
+  \item{m1}{model 1, the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m1 should be the probablity matrix.}
+    \item{m2}{model 2, the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m2 should be the probablity matrix.}
+  \item{method}{the simplied name of one of the following most popular regressions:“multinom”: Multiple Logistic Regression which is the defalt method, requiring R package nnet;“tree”: Classification Tree without pruning, requiring R package rpart;“svm”: Support Vector Machine with parameters: C-classification and radial basis, requiring R package m1071;“lda”: Linear Discriminant Analysis, requiring R package lda;“mlp”: Multiply Layer Perception, requiring R package mxnet;“prob”: Regression arbitrarily.}
   \item{n}{number of the categories, can be 3 or 4.}
 }
 \details{
@@ -31,12 +31,12 @@ Li, J., Jiang, B. and Fine, J. P. (2013). Multicategory reclassification statist
 Gao Ming, Li jialiang
 }
 \note{
-Pay attention to notice that in MLP, I just only give a typical parameter which, in consequence, may meet error if the data input changes. Hence, feel safe to change these parameters in the function yourself.
+Pay attention to notice that in MLP, I just only give a typical parameter which, in consequence, may meets error if the data input changes. Hence, feel safe to change these parameters in the function yourself.
 
 It allows to use your own regression by easily setting the method to be “prob”. Notice that at this circumstance, the input m1 and m2 should be probability matrices with dimension N*3, which every RowSum should be 1.
 }
 \seealso{
-NRIHandle
+nri
 }
 \examples{
 rm(list=ls())

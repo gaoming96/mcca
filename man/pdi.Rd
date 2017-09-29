@@ -5,12 +5,12 @@
 pdi(y, d, method="multinom",n=3)
 }
 \description{
-compute the Polytomous Discrimination Index (PDI) value of three or four categories classifiers with an method to define the specific model or user can use his own model.
+compute the Polytomous Discrimination Index (PDI) value of three or four categories classifiers with an option to define the specific model or user-defined model.
 }
 \arguments{
   \item{y}{the tri-nomial or quandr-nomial response, i.e., a single vector taking three distinct values, can be nominal or numerical.}
   \item{d}{the continuous marker, can be a data frame or a matrix; if the method is ¡°prob¡±, then d should be the probablity matrix.}
-  \item{method}{the simplied name of one of the following most popular regressions:¡°multinom¡±: Multinomial Regression which is the defalt method, requiring R package nnet;¡°tree¡±: Classification Tree without pruning, requiring R package rpart;¡°svm¡±: Support Vector Machine with parameters: C-classification and radial basis, requiring R package e1071;¡°lda¡±: Linear Discriminant Analysis, requiring R package lda;¡°mlp¡±: Multiply Layer Perception, requiring R package mxnet;¡°prob¡±: Regression arbitrarily.}
+  \item{method}{the simplied name of one of the following most popular regressions:¡°multinom¡±: Multiple Logistic Regression which is the defalt method, requiring R package nnet;¡°tree¡±: Classification Tree without pruning, requiring R package rpart;¡°svm¡±: Support Vector Machine with parameters: C-classification and radial basis, requiring R package e1071;¡°lda¡±: Linear Discriminant Analysis, requiring R package lda;¡°mlp¡±: Multiply Layer Perception, requiring R package mxnet;¡°prob¡±: Regression arbitrarily.}
   \item{n}{number of the categories, can be 3 or 4.}
 }
 \details{
@@ -34,12 +34,12 @@ categories. European Journal of Epidemiology 2012; 27: 761¨C
 Gao Ming, Li jialiang
 }
 \note{
-Pay attention to notice that in MLP, I just only give a typical parameter which, in consequence, may meet error if the data input changes. Hence, feel safe to change these parameters in the function yourself.
+Pay attention to notice that in MLP, I just only give a typical parameter which, in consequence, may meets error if the data input changes. Hence, feel safe to change these parameters in the function yourself.
 
 It allows to use your own regression by easily setting the method to be ¡°prob¡±. Notice that at this circumstance, the input d should be a probability matrix with dimension N*3 or N*4, which every RowSum should be 1.
 }
 \seealso{
-pdi
+hum
 }
 \examples{
 rm(list=ls())
