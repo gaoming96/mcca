@@ -30,6 +30,6 @@ str(iris)
 data <- iris[, 3]
 label <- iris[, 5]
 pdi(y = label, d = data,method="tree",n=3)
-## [1] 0.9082667
+##[1] 0.9082667
 pdi(y = label, d = data, method = "mlp",n=3)
-## [1] 0.9845333
+##[1] 0.9845333
