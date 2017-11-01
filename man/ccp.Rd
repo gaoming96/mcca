@@ -8,7 +8,7 @@ ccp(y, d, method="multinom", k=3)
 compute the Correct Classification Percentage (CCP) value of three or four categories classifiers with an option to define the specific model or user-defined model.
 }
 \arguments{
-  \item{y}The multinomial response vector with three or four categories. It can be factor or numerical.}
+  \item{y}{The multinomial response vector with three or four categories. It can be factor or numerical.}
   \item{d}{The set of candidate markers, including one or more columns. Can be a data frame or a matrix; if the method is "prob", then d should be the probablity matrix.}
   \item{method}{specifies what method is used to construct the classifier based on the marker set in d. Available option includes the following methods:"multinom": Multinomial Logistic Regression which is the default method, requiring R package nnet;"tree": Classification Tree method, requiring R package rpart;"svm": Support Vector Machine (C-classification and radial basis as default), requiring R package e1071;"lda": Linear Discriminant Analysis, requiring R package lda;"mlp": Multiply Layer Perception, requiring R package mxnet;"prob": d is a risk matrix resulted from any external classification algorithm obtained by the user.}
   \item{k}{number of the categories, can be 3 or 4.}

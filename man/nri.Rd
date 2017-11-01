@@ -8,7 +8,7 @@ nri(y, m1, m2, method="multinom", k=3)
 compute the net reclassification improvement (NRI) value of three or four categories classifiers with an option to define the specific model or user-defined model.
 }
 \arguments{
-  \item{y}The multinomial response vector with three or four categories. It can be factor or numerical.}
+  \item{y}{The multinomial response vector with three or four categories. It can be factor or numerical.}
   \item{m1}{model 1, the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m1 should be the probablity matrix.}
     \item{m2}{model 2, the continuous marker, can be a data frame or a matrix; if the method is “prob”, then m2 should be the probablity matrix.}
   \item{method}{specifies what method is used to construct the classifier based on the marker set in m1 & m2. Available option includes the following methods:"multinom": Multinomial Logistic Regression which is the default method, requiring R package nnet;"tree": Classification Tree method, requiring R package rpart;"svm": Support Vector Machine (C-classification and radial basis as default), requiring R package e1071;"lda": Linear Discriminant Analysis, requiring R package lda;"mlp": Multiply Layer Perception, requiring R package mxnet;"prob": m1 & m2 are risk matrices resulted from any external classification algorithm obtained by the user.}
