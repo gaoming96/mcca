@@ -1,5 +1,5 @@
-hum=function(y,d,method="multinom",n=3){
-  num=n
+hum=function(y,d,method="multinom",k=3){
+  num=k
   option=method
   if(num==3){
   #y is the tri-nomial response, i.e., a single vector taking three distinct values, can be nominal or numerical

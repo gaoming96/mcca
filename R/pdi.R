@@ -1,5 +1,5 @@
-pdi=function(y,d,method="multinom",n=3){
-  num=n
+pdi=function(y,d,method="multinom",k=3){
+  num=k
   option=method
 
   if(num==3){
