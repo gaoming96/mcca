@@ -14,7 +14,7 @@ library(devtools)
 install_github("gaoming96/mcca")
 library(mcca)
 
-### Help Function
+### Help File
 ?hum
 
 ### Example 1
