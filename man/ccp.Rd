@@ -31,7 +31,7 @@ Gao Ming: gaoming960329@gmail.com
 Li jialiang: stalj@nus.edu.sg
 }
 \note{
-Users are advised to change the operating settings of various classifiers since it is well known that machine learning methods require extensive tuning. Currently only some common and intuitive options are set as default and they are by no means the optimal parameterization for a particular data analysis. A more flexible evaluation is to consider "method=prob" in which case the input d should be a matrix of membership probabilities with k columns and each row of d should sum to one.
+Users are advised to change the operating settings of various classifiers since it is well known that machine learning methods require extensive tuning. Currently only some common and intuitive options are set as default and they are by no means the optimal parameterization for a particular data analysis. A more flexible evaluation is to consider "method=label" in which case the input d should be a label vector.
 }
 \seealso{
 pdi
