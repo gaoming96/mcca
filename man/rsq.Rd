@@ -46,6 +46,19 @@ rsq(y = label, d = data, method="multinom", k = 3)
 rsq(y = label, d = data, method = "tree", k = 3)
 ## [1] 0.8956651
 
+data <- data.matrix(iris[, 1:4])
+label <- as.numeric(iris[, 5])
+# multinomial
+require(nnet)
+# model
+fit <- multinom(label ~ data, maxit = 1000, MaxNWts = 2000)
+predict.probs <- predict(fit, type = "probs")
+pp<- data.frame(predict.probs)
+# extract the probablity assessment vector
+head(pp)
+rsq(y = label, d = pp, method = "prob", k = 3)
+## [1] 0.9703397
+
 rm(list=ls())
 table(mtcars$carb)
 for (i in (1:length(mtcars$carb))) {
