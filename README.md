@@ -7,13 +7,18 @@ Here is a little demo.<br>
 #install.packages("nnet")
 #install.packages("rpart")
 #install.packages("e1071")
+### Basic Setup
 #install.packages("MASS")
 #install.packages("devtools")
 library(devtools)
 install_github("gaoming96/mcca")
 library(mcca)
 
+### Help Function
 ?hum
+
+### Example 1
+rm(list=ls())
 str(iris)
 data <- iris[, 1:4]
 label <- iris[, 5]
@@ -26,6 +31,32 @@ hum(y = label, d = data, method = "mlp", k = 3)
 pdi(y = label, d = data, method = "mlp", k = 3)
 ##[1] 0.9976
 
+### Example 2
+rm(list=ls())
+str(iris)
+data <- data.matrix(iris[, 1:4])
+label <- as.numeric(iris[, 5])
+# multinomial
+require(nnet)
+# model
+fit <- multinom(label ~ data, maxit = 1000, MaxNWts = 2000)
+predict.probs <- predict(fit, type = "probs")
+pp<- data.frame(predict.probs)
+# extract the probablity assessment vector
+head(pp)
+##          X1           X2           X3
+## 1 1.0000000 7.813676e-11 1.208325e-37
+## 2 1.0000000 2.894707e-08 2.068738e-33
+## 3 1.0000000 2.961086e-09 3.547252e-35
+## 4 0.9999996 3.533713e-07 6.964265e-32
+## 5 1.0000000 5.609367e-11 5.690705e-38
+## 6 1.0000000 2.489396e-11 8.327501e-37
+hum(y = label, d = pp, method = "prob", k = 3)
+##[1] 0.9972
+# the same result as the first example in Example 1
+
+
+### Example 3
 rm(list=ls())
 str(iris)
 data <- iris[, 3]
