@@ -5,9 +5,8 @@ This is a package for Multi-category Diagnostic Accuracy.<br>
 
 [![CRAN Version](https://www.r-pkg.org/badges/version/mcca)](https://cran.r-project.org/package=mcca)
 ![Downloads](https://cranlogs.r-pkg.org/badges/mcca)
-[![Travis-CI Build Status](https://travis-ci.org/gaoming96/mcca.png?branch=master)](https://travis-ci.org/gaoming96/mcca)
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/40ua5l06jw0gjyjb?svg=true)](https://ci.appveyor.com/project/gaoming96/mcca)
-[![codecov.io](https://codecov.io/github/gaoming96/mcca/coverage.svg?branch=master)](https://codecov.io/github/gaoming96/mcca?branch=master)
+
 
 The package is available on [CRAN](https://cran.r-project.org/package=mcca) and can be installed directly in R using `install.packages()`. You may want to run `install_formats()` after the first installation.
 
