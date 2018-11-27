@@ -1,12 +1,21 @@
 Package: mcca
 Type: Package
-Title: a package for Multi-category Classification Accuracy
-Version: 0.1.0
-Author: Gao Ming, Li Jialiang
-Maintainer: gaoming <gaoming96@sjtu.edu.cn>
-Description: The package contains six robost diagnostic accuracy methods to evaluate three or four category classifiers
+Title: Multi-Category Classification Accuracy
+Version: 0.5.0
+Author: Ming Gao, Jialiang Li
+Maintainer: Ming Gao <gaoming96@sjtu.edu.cn>
+Description: It contains six common multi-category classification accuracy evaluation measures:
+ Hypervolume Under Manifold (HUM), described in
+ Li and Fine (2008) <doi:10.1093/biostatistics/kxm050>.
+ Correct Classification Percentage (CCP), Integrated Discrimination Improvement (IDI), Net Reclassification Improvement (NRI), R-Squared Value (RSQ), described in
+ Li, Jiang and Fine (2013) <doi:10.1093/biostatistics/kxs047>.
+ Polytomous Discrimination Index (PDI), described in
+ Van Calster et al. (2012) <doi:10.1007/s10654-012-9733-3>.
+ Li et al. (2018) <doi:10.1177/0962280217692830>.
 License: GPL
 Encoding: UTF-8
 LazyData: true
 Imports:
-  nnet,rpart,e1071,MASS
+  nnet,rpart,e1071,MASS,stats,pROC,caret
+URL: https://github.com/gaoming96/mcca
+BugReports: https://github.com/gaoming96/mcca/issues

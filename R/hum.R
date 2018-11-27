@@ -1,4 +1,4 @@
-hum=function(y,d,method="multinom",k=3){
+hum=function(y,d,method="multinom",k=3,...){
   num=k
   option=method
   if(num==3){
@@ -27,7 +27,7 @@ hum=function(y,d,method="multinom",k=3){
   #define the id
   if(option=="multinom"){
     #require(nnet)
-    fit <- nnet::multinom(y~d,maxit = 1000,MaxNWts = 2000)
+    fit <- nnet::multinom(y~d,...)
     predict.test.probs <- predict(fit,type='probs')
     predict.test.df <- data.frame(predict.test.probs)
     #extract the probablity assessment vector
@@ -35,7 +35,7 @@ hum=function(y,d,method="multinom",k=3){
   }else if(option=="tree"){
     #require(rpart)
     y <- as.factor(y)
-    fit <- rpart::rpart(y~d)
+    fit <- rpart::rpart(y~d,...)
     predict.test.probs <- predict(fit,type='prob')
     predict.test.df <- data.frame(predict.test.probs)
     #extract the probablity assessment vector
@@ -43,7 +43,7 @@ hum=function(y,d,method="multinom",k=3){
   }else if(option=="svm"){
     #require(e1071)
     y <- as.factor(y)
-    fit <- e1071::svm(y~d,type="C",kernel="radial",cost=1,scale=T,probability = T)
+    fit <- e1071::svm(y~d,...,probability = T)
     predict.test <- predict(fit,d,probability = T)
     predict.test <- attr(predict.test,"probabilities")
     predict.test.df <- data.frame(predict.test)
@@ -51,45 +51,14 @@ hum=function(y,d,method="multinom",k=3){
     pp=predict.test.df[c("X1","X2","X3")]
   }else if(option=="lda"){
     #require(MASS)
-    fit <- MASS::lda(y~d)
+    fit <- MASS::lda(y~d,...)
     predict.test.probs <- predict(fit,type='probs')
     predict.test.fit <- predict(fit)
     predict.test <- predict.test.fit$posterior
     predict.test.df <- data.frame(predict.test)
     #extract the probablity assessment vector
     pp=predict.test.df
-  }else if(option=="mlp"){
-    xxx <- require(mxnet)
-    if(!xxx){
-      print("installing mxnet because you don't have it...")
-      cran <- getOption("repos")
-      cran["dmlc"] <- "https://s3-us-west-2.amazonaws.com/apache-mxnet/R/CRAN/"
-      options(repos = cran)
-      install.packages("mxnet")
-      require(mxnet)
-    }
-    y <- as.numeric(y)-1
-    #model
-    data <- mx.symbol.Variable("data")
-    fc1 <- mx.symbol.FullyConnected(data, num_hidden=500)
-    act1 <- mx.symbol.Activation(fc1,  act_type="tanh")
-    drop1 <- mx.symbol.Dropout(act1,p=0.01)
-    fc2 <- mx.symbol.FullyConnected(drop1,  num_hidden=100)
-    act2 <- mx.symbol.Activation(fc2,  act_type="tanh")
-    drop2 <- mx.symbol.Dropout(act2,p=0.01)
-    fc3 <- mx.symbol.FullyConnected(drop2,  num_hidden=3)
-    softmax <- mx.symbol.SoftmaxOutput(fc3)
 
-    devices <- mx.cpu()
-    mx.set.seed(0)
-    model <- mx.model.FeedForward.create(softmax, X=d, y=y,
-                                         ctx=devices, num.round=41, array.batch.size=40,
-                                         learning.rate=0.008, momentum=0.9,  eval.metric=mx.metric.accuracy,
-                                         initializer=mx.init.uniform(0.07),
-                                         epoch.end.callback=mx.callback.log.train.metric(100))
-    preds = predict(model, d)
-    predict.test.df <- data.frame(t(preds))
-    pp=predict.test.df
   }else if(option=="prob"){
     pp_sum <- apply(d,1,sum)
     a <- pp_sum<0.999 | pp_sum>1.001
@@ -132,7 +101,7 @@ hum=function(y,d,method="multinom",k=3){
     #eg. try generating y=rmultinom(1,size=1,prob=cbind(1,exp(d%*%1),exp(d%*%2),exp(d%*%3))) need MASS
 
     y=as.numeric(y)
-    d=scale(d)
+    #d=scale(d)
     d=data.matrix(d)
     n=length(y)
     #n is the sample size
@@ -158,7 +127,7 @@ hum=function(y,d,method="multinom",k=3){
     #define the id
     if(option=="multinom"){
       #require(nnet)
-      fit <- nnet::multinom(y~d,maxit = 1000,MaxNWts = 2000)
+      fit <- nnet::multinom(y~d,...)
       predict.test.probs <- predict(fit,type='probs')
       predict.test.df <- data.frame(predict.test.probs)
       #extract the probablity assessment vector
@@ -166,7 +135,7 @@ hum=function(y,d,method="multinom",k=3){
     }else if(option=="tree"){
       #require(rpart)
       y <- as.factor(y)
-      fit <- rpart::rpart(y~d,control = rpart.control(minsplit = 5))
+      fit <- rpart::rpart(y~d,...)
       predict.test.probs <- predict(fit,type='prob')
       predict.test.df <- data.frame(predict.test.probs)
       #extract the probablity assessment vector
@@ -174,7 +143,7 @@ hum=function(y,d,method="multinom",k=3){
     }else if(option=="svm"){
       #require(e1071)
       y <- as.factor(y)
-      fit <- e1071::svm(y~d,type="C",kernel="linear",cost=0.7,scale=T,probability = T)
+      fit <- e1071::svm(y~d,...,probability = T)
       predict.test <- predict(fit,d,probability = T)
       predict.test <- attr(predict.test,"probabilities")
       predict.test.df <- data.frame(predict.test)
@@ -182,45 +151,14 @@ hum=function(y,d,method="multinom",k=3){
       pp=predict.test.df[c("X1","X2","X3","X4")]
     }else if(option=="lda"){
       #require(MASS)
-      fit <- MASS::lda(y~d)
+      fit <- MASS::lda(y~d,...)
       predict.test.probs <- predict(fit,type='probs')
       predict.test.fit <- predict(fit)
       predict.test <- predict.test.fit$posterior
       predict.test.df <- data.frame(predict.test)
       #extract the probablity assessment vector
       pp=predict.test.df
-    }else if(option=="mlp"){
-      xxx <- require(mxnet)
-      if(!xxx){
-        print("installing mxnet because you don't have it...")
-        cran <- getOption("repos")
-        cran["dmlc"] <- "https://s3-us-west-2.amazonaws.com/apache-mxnet/R/CRAN/"
-        options(repos = cran)
-        install.packages("mxnet")
-        require(mxnet)
-      }
-      y <- as.numeric(y)-1
-      #model
-      data <- mx.symbol.Variable("data")
-      fc1 <- mx.symbol.FullyConnected(data, num_hidden=500)
-      act1 <- mx.symbol.Activation(fc1,  act_type="tanh")
-      drop1 <- mx.symbol.Dropout(act1,p=0.01)
-      fc2 <- mx.symbol.FullyConnected(drop1,  num_hidden=100)
-      act2 <- mx.symbol.Activation(fc2,  act_type="tanh")
-      drop2 <- mx.symbol.Dropout(act2,p=0.01)
-      fc3 <- mx.symbol.FullyConnected(drop2,  num_hidden=3)
-      softmax <- mx.symbol.SoftmaxOutput(fc3)
 
-      devices <- mx.cpu()
-      mx.set.seed(0)
-      model <- mx.model.FeedForward.create(softmax, X=d, y=y,
-                                           ctx=devices, num.round=41, array.batch.size=40,
-                                           learning.rate=0.008, momentum=0.9,  eval.metric=mx.metric.accuracy,
-                                           initializer=mx.init.uniform(0.07),
-                                           epoch.end.callback=mx.callback.log.train.metric(100))
-      preds = predict(model, d)
-      predict.test.df <- data.frame(t(preds))
-      pp=predict.test.df
     }else if(option=="prob"){
       pp_sum <- apply(d,1,sum)
       a <- pp_sum<0.999 | pp_sum>1.001
@@ -249,7 +187,7 @@ hum=function(y,d,method="multinom",k=3){
     mt1=kronecker(kronecker(jd1[x1]%*%t(jd2[x2]),jd3[x3]),jd4[x4]);
     mt7=kronecker(kronecker(jd1[x1]%*%t(jd2[x2]),jd4[x3]),jd3[x4]);
     mt2=kronecker(kronecker(jd1[x1]%*%t(jd3[x2]),jd2[x3]),jd4[x4]);
-    mt8=kronecker(kronecker(jd1[x1]%*%t(jd3[x2]),jd4[x3]),jd3[x4]);
+    mt8=kronecker(kronecker(jd1[x1]%*%t(jd3[x2]),jd4[x3]),jd2[x4]);
     mt9=kronecker(kronecker(jd1[x1]%*%t(jd4[x2]),jd2[x3]),jd3[x4]);
     mt10=kronecker(kronecker(jd1[x1]%*%t(jd4[x2]),jd3[x3]),jd2[x4]);
     mt3=kronecker(kronecker(jd2[x1]%*%t(jd1[x2]),jd3[x3]),jd4[x4]);
@@ -271,12 +209,84 @@ hum=function(y,d,method="multinom",k=3){
     mt21=kronecker(kronecker(jd4[x1]%*%t(jd3[x2]),jd1[x3]),jd2[x4]);
     mt22=kronecker(kronecker(jd4[x1]%*%t(jd3[x2]),jd2[x3]),jd1[x4]);
 
-    cr=sum(mt1==pmin(mt7,pmin(mt8,pmin(mt9,pmin(mt10,pmin(mt11,pmin(mt12,pmin(mt13,pmin(mt14,pmin(mt15,pmin(mt16,pmin(mt17,pmin(mt18,pmin(mt19,pmin(mt20,pmin(21,pmin(mt22,pmin(mt23,pmin(mt24,pmin(pmin(pmin(pmin(pmin(mt1, mt2), mt3), mt4), mt5), mt6))))))))))))))))))));
+    cr=sum(mt1==pmin(mt7,pmin(mt8,pmin(mt9,pmin(mt10,pmin(mt11,pmin(mt12,pmin(mt13,pmin(mt14,pmin(mt15,pmin(mt16,pmin(mt17,pmin(mt18,pmin(mt19,pmin(mt20,pmin(mt21,pmin(mt22,pmin(mt23,pmin(mt24,pmin(pmin(pmin(pmin(pmin(mt1, mt2), mt3), mt4), mt5), mt6))))))))))))))))))));
 
 
     #hypervolume under ROC manifold
     hum=cr/(n1*n2*n3*n4);
 
     return(hum)
-  }
+  }else if(num==2){
+      #y is the tri-nomial response, i.e., a single vector taking three distinct values, can be nominal or numerical
+      #d is the continuous marker, turn out to be the probability matrix when option="prob"
+
+      #x1 is position of observations from the 1st category
+      #x2 is position of observations from the 2nd category
+      #x3 is position of observations from the 3rd category
+      y=as.numeric(y)
+      d=data.matrix(d)
+      x1=which(y==1) #return the label
+      x2=which(y==2)
+      n=length(y)
+
+      #n is the sample size
+      a=matrix(0,n,2);
+      one1=a;
+      one1[,1]=1;
+      one2=a;
+      one2[,2]=1;
+
+
+      #define the id
+      if(option=="multinom"){
+        #require(nnet)
+        fit <- nnet::multinom(y~d,...)
+        predict.test.probs <- predict(fit,type='probs')
+        predict.test.df <- data.frame(predict.test.probs)
+        #extract the probablity assessment vector
+        pp=predict.test.df
+        pp <- data.frame(1-pp,pp)
+      }else if(option=="tree"){
+        #require(rpart)
+        y <- as.factor(y)
+        fit <- rpart::rpart(y~d,...)
+        predict.test.probs <- predict(fit,type='prob')
+        predict.test.df <- data.frame(predict.test.probs)
+        #extract the probablity assessment vector
+        pp=predict.test.df
+      }else if(option=="svm"){
+        #require(e1071)
+        y <- as.factor(y)
+        fit <- e1071::svm(y~d,...,probability = T)
+        predict.test <- predict(fit,d,probability = T)
+        predict.test <- attr(predict.test,"probabilities")
+        predict.test.df <- data.frame(predict.test)
+        #extract the probablity assessment vector
+        pp=predict.test.df[c("X1","X2")]
+      }else if(option=="lda"){
+        #require(MASS)
+        fit <- MASS::lda(y~d,...)
+        predict.test.probs <- predict(fit,type='probs')
+        predict.test.fit <- predict(fit)
+        predict.test <- predict.test.fit$posterior
+        predict.test.df <- data.frame(predict.test)
+        #extract the probablity assessment vector
+        pp=predict.test.df
+
+      }else if(option=="prob"){
+        pp_sum <- apply(d,1,sum)
+        a <- pp_sum<0.999 | pp_sum>1.001
+        b <- sum(a)
+        if (b!=0){
+          cat("ERROR: The input value \"d\" should be a probability matrix.")
+       #   return(NULL)
+        }
+        pp=d
+      }
+
+
+
+      return(as.numeric(pROC::roc(y ~ pp[,1])$auc))
+      }
+
 }
