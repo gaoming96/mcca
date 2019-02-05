@@ -2,7 +2,8 @@
 This is a package for Multi-category Diagnostic Accuracy.<br>
 
 ## Installation
-
+[![License: GPL
+v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 [![CRAN Version](https://www.r-pkg.org/badges/version/mcca)](https://cran.r-project.org/package=mcca)
 ![Downloads](https://cranlogs.r-pkg.org/badges/mcca)
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/40ua5l06jw0gjyjb?svg=true)](https://ci.appveyor.com/project/gaoming96/mcca)
@@ -29,13 +30,24 @@ It contains six common multi-category classification accuracy evaluation measure
 
  Hypervolume Under Manifold (HUM), described in
  Li and Fine (2008) <doi:10.1093/biostatistics/kxm050>.
- 
- Correct Classification Percentage (CCP), Integrated Discrimination Improvement (IDI), Net Reclassification Improvement (NRI), R-Squared Value (RSQ), described in
+
+Correct Classification Percentage (CCP), Integrated Discrimination Improvement (IDI), Net Reclassification Improvement (NRI), R-Squared Value (RSQ), described in
  Li, Jiang and Fine (2013) <doi:10.1093/biostatistics/kxs047>.
  
  Polytomous Discrimination Index (PDI), described in
  Van Calster et al. (2012) <doi:10.1007/s10654-012-9733-3>.
  Li et al. (2018) <doi:10.1177/0962280217692830>.
+ 
+ We have published a paper to describe all the above measures and mcca package:
+ 
+ Li J, Gao M, D'Agostino R. Evaluating classification accuracy for modern learning
+approaches. Statistics in Medicine. 2019;1–27. https://doi.org/10.1002/sim.8103
+
+
+## Citation
+Li J, Gao M, D'Agostino R. Evaluating classification accuracy for modern learning
+approaches. Statistics in Medicine. 2019;1–27. https://doi.org/10.1002/sim.8103
+
 
 ## Demo
 
